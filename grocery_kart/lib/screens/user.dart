@@ -2,8 +2,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-class User extends StatelessWidget {
+class User extends StatefulWidget {
   const User({super.key});
+
+  @override
+  State<User> createState() => _UserState();
+}
+
+class _UserState extends State<User> {
+  final TextEditingController _addressController =
+      TextEditingController(text: "");
+
+  @override
+  void dispose() {
+    _addressController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +44,11 @@ class User extends StatelessWidget {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
-                        recognizer: TapGestureRecognizer()..onTap = (){
-                          // ignore: avoid_print
-                          print("My name is pressed");
-                        }
-                    ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // ignore: avoid_print
+                            print("My name is pressed");
+                          }),
                   ]),
             ),
             const SizedBox(
@@ -47,7 +61,9 @@ class User extends StatelessWidget {
               title: 'Address',
               subtitle: 'Subtitle',
               icon: IconlyLight.profile,
-              onPressed: () {},
+              onPressed: () async {
+                await _showAddressDialog();
+              },
             ),
             _listTile(
               title: 'Orders',
@@ -72,12 +88,50 @@ class User extends StatelessWidget {
             _listTile(
               title: 'Logout',
               icon: IconlyLight.logout,
-              onPressed: () {},
+              onPressed: () async{
+                await _showLogoutDialog();
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            title: const Text("Update Address"),
+            content: TextField(
+              onChanged: (value) {
+                _addressController.text = value;
+              },
+              controller: _addressController,
+              maxLines: 5,
+              decoration: const InputDecoration(hintText: "Your Address"),
+            ),
+            actions: [
+              TextButton(onPressed: () {}, child: const Text('Update')),
+            ],
+          );
+        }));
+  }
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            title: const Text("Logout"),
+            content: const Text('Do You want to Logout?'),
+            actions: [
+              TextButton(onPressed: () {}, child: const Text('Cancel')),
+              TextButton(onPressed: () {}, child: const Text('Logout')),
+            ],
+          );
+        }));
   }
 
   Widget _listTile({
