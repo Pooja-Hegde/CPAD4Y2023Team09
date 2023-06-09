@@ -127,7 +127,11 @@ class _UserState extends State<User> {
             title: const Text("Logout"),
             content: const Text('Do You want to Logout?'),
             actions: [
-              TextButton(onPressed: () {}, child: const Text('Cancel')),
+              TextButton(onPressed: () {
+                if(Navigator.canPop(context)){
+                  Navigator.pop(context);
+                }
+              }, child: const Text('Cancel')),
               TextButton(onPressed: () {}, child: const Text('Logout')),
             ],
           );
