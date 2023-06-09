@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_kart/screens/bottomBar.dart';
 import 'package:grocery_kart/screens/home.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: const BottomBar(),
     );
   }
 }
