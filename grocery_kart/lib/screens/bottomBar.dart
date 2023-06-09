@@ -13,11 +13,11 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
-  final List _pages = [
-    const Home(),
-    const Categories(),
-    const Cart(),
-    const User()
+  final List<Map<String, dynamic>> _pages = [
+    {'page': const Home(), 'title': 'Home'},
+    {'page': const Categories(), 'title': 'Categories'},
+    {'page': const Cart(), 'title': 'Cart'},
+    {'page': const User(), 'title': 'Profile'},
   ];
 
   void _selectedScreen(int index) {
@@ -29,7 +29,10 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      appBar: AppBar(
+        title: Text(_pages[_selectedIndex]['title']),
+      ),
+      body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.blue,
