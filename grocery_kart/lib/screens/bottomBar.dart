@@ -15,7 +15,7 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   final List<Map<String, dynamic>> _pages = [
     {'page': const Home(), 'title': 'Home'},
-    {'page': const Categories(), 'title': 'Categories'},
+    {'page': Categories(), 'title': 'Categories'},
     {'page': const Cart(), 'title': 'Cart'},
     {'page': const User(), 'title': 'Profile'},
   ];
